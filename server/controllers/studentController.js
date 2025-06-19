@@ -32,13 +32,19 @@ export const createStudent = async (req, res) => {
 
 export const updateStudent = async (req, res) => {
   try {
-    const updated = await Student.findByIdAndUpdate(req.params.id, req.body, {
+    const { id } = req.params;
+    const updated = await Student.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    if (!updated) return res.status(404).json({ error: "Student not found" });
-    res.json(updated);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+
+    if (!updated) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    res.status(200).json(updated);
+  } catch (error) {
+    console.error("Error updating student:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
 

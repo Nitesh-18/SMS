@@ -11,8 +11,26 @@ export default function StudentTable() {
         setStudents(data);
     };
 
+    const updateStudent = async (form) => {
+        try {
+            const res = await fetch(`/api/students/update/${form._id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(form),
+            });
+            const updated = await res.json();
+            toast.success("Student updated");
+            // refresh list
+            setShowEditModal(false);
+        } catch (err) {
+            console.error(err);
+            toast.error("Update failed");
+        }
+    };
+
     const handleDelete = async (id) => {
         await deleteStudent(id);
+        toast.success("Student updated successfully!");
         getStudents(); // refresh
     };
 
@@ -62,7 +80,7 @@ export default function StudentTable() {
                                     </button>
                                     <button
                                         className="text-yellow-500 hover:underline"
-                                        onClick={() => alert("TODO: Edit")}
+                                        onClick={() => updateStudent(s._id)}
                                     >
                                         Edit
                                     </button>

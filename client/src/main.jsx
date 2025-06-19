@@ -6,10 +6,13 @@ import StudentProfile from "./pages/StudentProfile.jsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/student/:id" element={<StudentProfile />} />
-    </Routes>
-  </BrowserRouter>
+  <>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/student/:id" element={<StudentProfile />} />
+      </Routes>
+    </BrowserRouter>
+    <Toaster position="top-right" reverseOrder={false} />
+  </>
 );
